@@ -6,7 +6,7 @@ class StaticContentController < Spree::BaseController
     when Array
       '/' + params[:path].join("/")
     when String
-      params[:path]
+      '/' + params[:path]
     when nil
       request.path
     end
