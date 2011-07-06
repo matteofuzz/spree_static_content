@@ -3,6 +3,7 @@
 <%= f.inputs do %>
   <%= f.input :title %>
   <%= f.input :slug %>
+  <%= f.input :locale, :as => :select, :collection => I18n.available_locales %>
   <%= f.input :body %>
   <%= f.input :foreign_link %>
   <%= f.input :meta_keywords %>

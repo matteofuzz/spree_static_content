@@ -2,6 +2,7 @@ class StaticContentController < Spree::BaseController
   caches_action :show
   
   def show
+    locale = params[:locale] ? params[:locale] : I18n.locale
     path = case params[:path]
     when Array
       '/' + params[:path].join("/")
@@ -10,8 +11,11 @@ class StaticContentController < Spree::BaseController
     when nil
       request.path
     end
-
-    unless @page = Page.visible.find_by_slug(path)
+    
+    @page = Page.visible.find_by_slug_and_locale(path, locale)
+    @page ||= Page.visible.find_by_slug_and_locale(path, I18n.default_locale)
+    @page ||= Page.visible.find_by_slug(path)
+    unless @page
       render :file => "#{RAILS_ROOT}/public/404.html", :layout => false, :status => 404
     end
   end
