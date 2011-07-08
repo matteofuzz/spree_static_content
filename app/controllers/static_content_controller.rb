@@ -1,5 +1,5 @@
 class StaticContentController < Spree::BaseController
-  caches_action :show
+  caches_page :show
   
   def show
     locale = params[:locale] ? params[:locale] : I18n.locale
